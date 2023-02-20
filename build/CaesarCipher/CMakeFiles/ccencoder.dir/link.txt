@@ -1,0 +1,1 @@
+/nix/store/4xs1xyj8728yvh9y5v6ji819kwgfy2fv-gcc-wrapper-10.3.0/bin/g++ -g -rdynamic CMakeFiles/ccencoder.dir/encoder_main.cpp.o CMakeFiles/ccencoder.dir/src/cipher/encoder.cpp.o CMakeFiles/ccencoder.dir/src/file_manipulation/file_read.cpp.o CMakeFiles/ccencoder.dir/src/utils/utils.cpp.o -o ../bin/ccencoder 
