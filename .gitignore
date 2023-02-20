@@ -1,0 +1,6 @@
+build/
+encoded.txt
+decoded.txt
+encoded_1.txt
+decode_test.txt
+encode_test.txt
