@@ -1,0 +1,14 @@
+Caesar cipher is really  nicely put together.
+10/10
+
+Bloom
+I'm not able to tell whether this is working or not, so my grade is based on the effort, which looks solid.
+
+When I run the app, here is what happens:
+ ./build/bin/bloom_app -s 20 -n 2
+Enter "q" or "quit" to exit -> Would you like to insert or search a string? -> q
+
+The program is supposed to work by reading in a file and seeing whether the (m,k) values work.
+It looks like you may not be done yet, which is ok, but please try to finish soon.
+
+8/10 for now on the Bloom part.

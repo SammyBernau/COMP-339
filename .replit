@@ -1,5 +1,5 @@
 compile = "rm -rf build && cmake -S . -B build && cmake --build build"
-run = "./build/bin/ccencoder --help"
+run = "./build/bin/helper_print"
 entrypoint = "encoder_main.cpp"
 
 [debugger]

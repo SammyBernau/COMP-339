@@ -1,6 +1,7 @@
 { pkgs }: {
 	deps = [
-		pkgs.run
+		pkgs.sudo
+  pkgs.run
   pkgs.aspell
     pkgs.aspellDicts.en
     pkgs.cmake
@@ -9,5 +10,6 @@
 		pkgs.gdb
 		pkgs.gnumake
     pkgs.cmake
+    pkgs.openssl
 	];
 }
