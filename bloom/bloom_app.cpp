@@ -6,8 +6,10 @@
 
 #include <iostream>
 #include <cmath>
+#include <string>
 #include "include/BloomFilter.h"
 #include "../CaesarCipher/include/CLI11.hpp"
+#include "include/file_read.h"
 using namespace std;
 
 
@@ -17,6 +19,9 @@ int main(int argc, char **argv) {
     
     int bit_vec_size;
     int num_of_hashes; //must be 1 or 2
+    string input_file;
+
+    bloom_filter.add_option("-i, --input_file", input_file, "Enter file path") -> required(); 
 
     bloom_filter.add_option("-s, --vec_s", bit_vec_size, "Enter bit vector size") -> required();
 
@@ -26,7 +31,31 @@ int main(int argc, char **argv) {
 
 
     CLI11_PARSE(bloom_filter, argc,argv);
+
     BloomFilter bf (bit_vec_size, num_of_hashes);
+
+    cout << "Reading from inputed file" << endl;
+
+    fstream new_file; // file object
+  
+    try {
+        new_file.open(input_file, ios::in); //open file object for reading
+        if (!new_file.is_open()) {
+            cout << "Error opening file: " << input_file << endl;
+        }
+        if (new_file.is_open()) {
+            string file_text;
+            while (getline(new_file, file_text)) { //read file text
+              bf.insert(file_text); 
+            }
+            new_file.close();
+        }
+    }
+    catch (const ios_base::failure& e) {
+        cerr << "Error opening file: " << e.what() << endl;
+    }
+
+
 
     cout << "Enter \"q\" or \"quit\" to exit -> " << endl;
     while (1) {

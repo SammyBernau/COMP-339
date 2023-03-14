@@ -1,0 +1,7 @@
+TODO 
+- choose a minimum length of words to use with bloom filter
+- find a good m and k combination
+- read in words from dictionary 
+- find the number of collisions 
+- its basically a histogram
+- spdlog instead of cout/cerr for logging
