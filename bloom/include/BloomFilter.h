@@ -13,6 +13,7 @@ public:
     void insert(const string& element);
     string search(const string& element);
     void print_data();
+    int get_size();
 
 private:
     int m;

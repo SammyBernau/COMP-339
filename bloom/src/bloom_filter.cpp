@@ -8,6 +8,11 @@ using namespace std;
 
 BloomFilter::BloomFilter(int m, int k) : m(m), k(k), data(m), n(0) {}
 
+
+int BloomFilter::get_size(){
+    return n;
+}
+
 void BloomFilter::insert(const string& element) {
     if (k == 1) {
         int hash1 = h1(element) % m;
@@ -37,7 +42,7 @@ string BloomFilter::search(const string& element) {
     double prob = pow(1.0 - pow(1.0 - 1.0 / m, k * n), k);
     ostringstream oss;
     oss << fixed << setprecision(10) << prob;
-    return "Might be in Bloom Filter with false positive probability " + oss.str();
+    return oss.str();
 }
 
 void BloomFilter::print_data() {
