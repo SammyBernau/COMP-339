@@ -38,6 +38,7 @@ int main(int argc, char **argv) {
     CLI11_PARSE(bloom_filter, argc,argv);
 
     BloomFilter bf (bit_vec_size, num_of_hashes);
+    bf.print_data();
     double running_total; 
     cout << endl;
     fstream new_file; // file object
@@ -64,47 +65,14 @@ int main(int argc, char **argv) {
     
     
     cout << "---RESULT---" << endl;
-    cout << "Reading from file : " << input_file << endl;
+    cout << "Reading from file: " << input_file << endl;
     cout << "Total insertions: " << bf.get_size() << endl;
-    cout << "Bit vector size = " << bit_vec_size << endl;
-    cout << "Number of hash algs = " << num_of_hashes << endl;
+    cout << "Bit vector size: " << bit_vec_size << endl;
+    cout << "Number of hash algs: " << num_of_hashes << endl;
     cout << "Avg false positive probability: " << (running_total/bf.get_size()) * 100 << "%" << endl;
+    cout << "Number of collisions: " << bf.get_collisions() << endl;
     cout << endl;
 
-    // cout << "Enter \"q\" or \"quit\" to exit -> " << endl;
-    // while (1) {
-    //   string input = "";
-    //   cout << "Would you like to insert a string, search or print the vector? -> ";
-    //   cin >> input;
-    //   cout << endl; //space
-      
-    //   if (input == "Insert" || input == "insert") {
-    //     string insert_value = "";
-    //     cout << "Insert string here -> "; 
-    //     cin >> insert_value;
-    //     bf.insert(insert_value);
-    //     cout << endl; //space
-    //   }
-
-    //   if (input == "Search"|| input == "search") {
-    //     string search_value = "";
-    //     cout << "What string would you like to search for? -> "; 
-    //     cin >> search_value;
-
-    //     cout << "Here is your result... ";
-    //     cout << bf.search(search_value) << endl;
-    //     cout << endl; //space
-    //   }
-
-    //   if (input == "Print" || input == "print") {
-    //     bf.print_data();
-    //     cout << endl; //space
-    //   }
-
-    //   if(input == "quit" || input == "q") {
-    //     break;
-    //   }
-    // }
 
     return 0;
 }

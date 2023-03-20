@@ -1,7 +1,14 @@
 TODO 
+
+1. Compute collisions
+2. Format hamlet.txt so that it reads word by word 
+3. Compute unique word ID list
+4. filter hamlet with dictionary? 
+5. Graph collision results (python or Shell script)
+
+
 - choose a minimum length of words to use with bloom filter
-- find a good m and k combination
-- read in words from dictionary 
 - find the number of collisions 
-- its basically a histogram
-- spdlog instead of cout/cerr for logging
+- spdlog instead of cout/cerr for logging https://github.com/gabime/spdlog
+- maybe hash the same word a few times and concatenate it to create a unique word ID (push to vector array after for word cloud)
+- Set up filter w/ dict, search to see if hamlet words are there

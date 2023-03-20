@@ -14,12 +14,14 @@ public:
     string search(const string& element);
     void print_data();
     int get_size();
+    int get_collisions();
 
 private:
     int m;
     int k;
     vector<int> data;
-    int n;
+    int num_of_inserts;
+    int collisions;
 
     int h1(const string& w);
     int h2(const string& w);
