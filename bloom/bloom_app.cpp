@@ -4,13 +4,20 @@
 #include <unistd.h>
 #endif
 
+#include <tuple>
 #include <iostream>
 #include <cmath>
 #include <string>
 #include "include/BloomFilter.h"
 #include "../CaesarCipher/include/CLI11.hpp"
-#include "include/file_read.h"
+#include "include/result.h"
+#include <openssl/sha.h>
+
 using namespace std;
+
+
+
+
 
 
 int main(int argc, char **argv) {
@@ -37,42 +44,10 @@ int main(int argc, char **argv) {
 
     CLI11_PARSE(bloom_filter, argc,argv);
 
-    BloomFilter bf (bit_vec_size, num_of_hashes);
-    bf.print_data();
-    double running_total; 
     cout << endl;
-    fstream new_file; // file object
-  
-    try {
-        new_file.open(input_file, ios::in); //open file object for reading
-        if (!new_file.is_open()) {
-            cout << "Error opening file: " << input_file << endl;
-        }
-        if (new_file.is_open()) {
-            string file_text;
-            while (getline(new_file, file_text)) { //read file text
-              bf.insert(file_text);
-
-              double curr_val_probability = stod(bf.search(file_text));
-              running_total += curr_val_probability; 
-            }
-            new_file.close();
-        }
-    }
-    catch (const ios_base::failure& e) {
-        cerr << "Error opening file: " << e.what() << endl;
-    }
     
-    
-    cout << "---RESULT---" << endl;
-    cout << "Reading from file: " << input_file << endl;
-    cout << "Total insertions: " << bf.get_size() << endl;
-    cout << "Bit vector size: " << bit_vec_size << endl;
-    cout << "Number of hash algs: " << num_of_hashes << endl;
-    cout << "Avg false positive probability: " << (running_total/bf.get_size()) * 100 << "%" << endl;
-    cout << "Number of collisions: " << bf.get_collisions() << endl;
-    cout << endl;
-
+    //Computes the result of the user input
+    result(input_file, bit_vec_size, num_of_hashes);
 
     return 0;
 }
