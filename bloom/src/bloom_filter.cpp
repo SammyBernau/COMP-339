@@ -70,25 +70,8 @@ int BloomFilter::h1(const string &w) {
   unsigned char md5_hash[MD5_DIGEST_LENGTH];
   MD5(reinterpret_cast<const unsigned char *>(w.c_str()), w.length(), md5_hash);
   string md5_str(reinterpret_cast<const char *>(md5_hash), MD5_DIGEST_LENGTH);
-  //cout << md5_str << endl;
-  //cout << hash<string>{}(md5_str) % 10 << endl;
   return hash<string>{}(md5_str) % m;
 }
-
-//  int BloomFilter::h1 (const string str)
-// {
-//     unsigned char hash[SHA256_DIGEST_LENGTH];
-//     SHA256_CTX sha256;
-//     SHA256_Init(&sha256);
-//     SHA256_Update(&sha256, str.c_str(), str.size());
-//     SHA256_Final(hash, &sha256);
-//     stringstream ss;
-//     for(int i = 0; i < SHA256_DIGEST_LENGTH; i++)
-//     {
-//         ss << hex << setw(2) << setfill('0') << (int)hash[i];
-//     }
-//     return stod(ss.str());
-// }
 
 int BloomFilter::h2(const string &w) {
   unsigned char sha256_hash[SHA256_DIGEST_LENGTH];

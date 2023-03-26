@@ -4,24 +4,22 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include <set>
 
 using namespace std;
 
 class WordCount {
 public:
-    WordCount(int m, int k);
-    void insert(const string& element);
-    string search(const string& element);
-    void print_data();
+    WordCount(){};
+    void insert(const string& word);
     int get_size();
-    int get_collisions();
+    bool contains(const string& word);
 
 private:
-    vector<int> data;
-    int num_of_inserts;
+    set<int> words;
 
     int h1(const string& w);
     int h2(const string& w);
 };
 
-#endif // BLOOM_FILTER_H
+#endif 
