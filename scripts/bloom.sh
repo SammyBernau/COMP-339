@@ -1,5 +1,8 @@
 #!/bin/bash
-echo "" 
+
+
+
+echo ""
 echo "1st Output"
 .././build/bin/bloom_app -i ../hamlet.txt -s 1000000 -n 1
 echo ""

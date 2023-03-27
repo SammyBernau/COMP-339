@@ -23,8 +23,9 @@ private:
     int num_of_inserts;
     int collisions;
     
-    int h1(const string& w);
-    int h2(const string& w);
+    int sha256(const string& w);
+    //int sha384(const string& w);
+    int sha512(const string& input_str);
 };
 
 #endif // BLOOM_FILTER_H

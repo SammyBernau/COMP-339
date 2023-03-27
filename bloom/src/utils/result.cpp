@@ -38,13 +38,20 @@ void result(string input_file, int bit_vec_size, int num_of_hashes)
 
                     if (ch == ' ')
                     {
-                        //cout << "Current word: "<< curr_word << endl;
+                        
                         bf.insert(curr_word);
                         wc.insert(curr_word);
                         double curr_val_probability = stod(bf.search(curr_word));
                         running_total += curr_val_probability;
                         curr_word = "";
                     }
+                }
+
+                if (curr_word.length() > 0 ) {
+                    
+                    bf.insert(curr_word);
+                    wc.insert(curr_word);
+                    curr_word = "";
                 }
             }
             new_file.close();

@@ -16,8 +16,7 @@
 
 using namespace std;
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv){
     CLI::App bloom_filter{"A bloom filter is a probabilistic data structure that is based on hashing. It is extremely space efficient and is typically used to add elements to a set and test if an element is in a set."};
 
     int bit_vec_size;
@@ -36,11 +35,8 @@ int main(int argc, char **argv)
     -> required();
 
     CLI11_PARSE(bloom_filter, argc,argv);
-
-    cout << endl;
-
+    
     //Computes the result of the user input
     result(input_file, bit_vec_size, num_of_hashes);
-
     return 0;
 }
