@@ -16,13 +16,14 @@ public:
     void insert(const string& word);
     int get_size();
     bool contains(const string& word);
+    int get_total_words_seen();
 
 private:
-    set<int> words;
-
-    int md5(const string& w);
+    set<uint64_t> words;
+    int total_words_seen = 0;
+    // int md5(const string& w);
     int sha256(const string& w);
-    int sha384(const string& w);
+    int sha512(const string& w);
 };
 
 #endif 

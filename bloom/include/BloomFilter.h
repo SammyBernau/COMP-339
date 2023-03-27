@@ -10,8 +10,8 @@ using namespace std;
 class BloomFilter {
 public:
     BloomFilter(int m, int k);
-    void insert(const string& element);
-    string search(const string& element);
+    void insert(const string& word);
+    double false_pos(); 
     void print_data();
     int get_size();
     int get_collisions();
@@ -24,8 +24,7 @@ private:
     int collisions;
     
     int sha256(const string& w);
-    //int sha384(const string& w);
-    int sha512(const string& input_str);
+    int sha512(const string& w);
 };
 
 #endif // BLOOM_FILTER_H

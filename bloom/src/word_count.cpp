@@ -7,17 +7,20 @@
 #include <openssl/md5.h>
 #include <openssl/sha.h>
 #include <sstream>
+#include <openssl/evp.h>
 using namespace std;
-
 
 void WordCount::insert(const string &word) {
     //Concatenate the hashes to create a uniqueID of each word and if words doesn't have it, store it
-    int unique_ID = sha256(word) + sha384(word) + md5(word);
+    uint64_t unique_ID = sha256(word) + sha512(word) + word.length();
 
     if (words.count(unique_ID) == 0){
          words.insert(unique_ID); 
-    } 
+    }
+    total_words_seen++;
 }
+
+int WordCount::get_total_words_seen(){return total_words_seen;}
 
 int WordCount::get_size() {
     return words.size();
@@ -25,7 +28,7 @@ int WordCount::get_size() {
 
 //Testing function 
 bool WordCount::contains(const string &word){
-    int unique_ID = sha256(word) + sha384(word) + md5(word);
+    uint64_t unique_ID = sha256(word) + sha512(word) + word.length();
 
     if (words.count(unique_ID)) {
         return true;
@@ -33,24 +36,54 @@ bool WordCount::contains(const string &word){
     return false;
 }
 
-int WordCount::md5(const string &w) {
-  unsigned char md5_hash[MD5_DIGEST_LENGTH];
-  MD5(reinterpret_cast<const unsigned char *>(w.c_str()), w.length(), md5_hash);
-  string md5_str(reinterpret_cast<const char *>(md5_hash), MD5_DIGEST_LENGTH);
-  return hash<string>{}(md5_str);
+int WordCount::sha512(const string& w) {
+    // Create an OpenSSL context for the SHA-512 hash algorithm
+    const EVP_MD* md = EVP_sha512();
+    EVP_MD_CTX* ctx = EVP_MD_CTX_new();
+    EVP_DigestInit_ex(ctx, md, NULL);
+
+    // Update the hash context with the input string
+    EVP_DigestUpdate(ctx, w.c_str(), w.length());
+
+    // Finalize the hash and obtain the resulting binary hash value
+    unsigned char hash[EVP_MAX_MD_SIZE];
+    unsigned int hash_len;
+    EVP_DigestFinal_ex(ctx, hash, &hash_len);
+
+    // Convert the binary hash value to a 32-bit integer using modulo operation
+    uint32_t hash_int = *((uint32_t*) hash);
+
+    // Map the 32-bit hash value to a 32-bit integer using modulo operation
+    int output = hash_int % numeric_limits<int>::max();
+
+    // Clean up the hash context
+    EVP_MD_CTX_free(ctx);
+
+    return output;
 }
 
-int WordCount::sha256(const string &w) {
-  unsigned char sha256_hash[SHA256_DIGEST_LENGTH];
-  SHA256(reinterpret_cast<const unsigned char *>(w.c_str()), w.length(),sha256_hash);
-  string sha256_str(reinterpret_cast<const char *>(sha256_hash), SHA256_DIGEST_LENGTH);
-  return hash<string>{}(sha256_str);
-}
+int WordCount::sha256(const string& w) {
+    // Create an OpenSSL context for the SHA-512 hash algorithm
+    const EVP_MD* md = EVP_sha256();
+    EVP_MD_CTX* ctx = EVP_MD_CTX_new();
+    EVP_DigestInit_ex(ctx, md, NULL);
 
-//Implemented sha384 because md5 is considered less effective
-int WordCount::sha384(const string &w){
-  unsigned char sha384_hash[SHA384_DIGEST_LENGTH];
-  SHA384(reinterpret_cast<const unsigned char *>(w.c_str()), w.length(), sha384_hash);
-  string sha384_str(reinterpret_cast<const char *>(sha384_hash), SHA384_DIGEST_LENGTH);
-  return hash<string>{}(sha384_str);
+    // Update the hash context with the input string
+    EVP_DigestUpdate(ctx, w.c_str(), w.length());
+
+    // Finalize the hash and obtain the resulting binary hash value
+    unsigned char hash[EVP_MAX_MD_SIZE];
+    unsigned int hash_len;
+    EVP_DigestFinal_ex(ctx, hash, &hash_len);
+
+    // Convert the binary hash value to a 32-bit integer using modulo operation
+    uint32_t hash_int = *((uint32_t*) hash);
+
+    // Map the 32-bit hash value to a 32-bit integer using modulo operation
+    int output = hash_int % numeric_limits<int>::max();
+
+    // Clean up the hash context
+    EVP_MD_CTX_free(ctx);
+
+    return output;
 }
